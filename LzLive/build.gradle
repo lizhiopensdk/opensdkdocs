@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    defaultConfig {
+        applicationId "com.lizhi.live"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionName "1.0"
+        versionCode 1
+        multiDexEnabled true
+
+        defaultConfig {
+            multiDexEnabled true
+            ndk {//目前只支持armeabi-v7a
+                abiFilters 'armeabi-v7a'
+            }
+        }
+    }
+
+
+    buildTypes {
+
+        debug {
+            minifyEnabled true
+            shrinkResources false
+            debuggable true
+            proguardFiles 'proguard-android-lizhi.txt', 'proguard-project.txt'
+        }
+
+        release {
+            minifyEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            debuggable false
+            proguardFiles 'proguard-project.txt'
+        }
+
+
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = "LzLive-${defaultConfig.versionName}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    testImplementation 'junit:junit:4.12'
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
+    implementation 'com.lizhifm.sdk.live:lzlive-lib:1.0.29.26-SNAPSHOT'
+    implementation "com.squareup.okhttp3:okhttp:3.12.12"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.12.12"
+    implementation "com.google.code.gson:gson:2.7"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:livedata:1.1.1"
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    implementation "org.greenrobot:eventbus:3.1.1"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:2.0.1"
+    implementation "com.android.support:multidex:1.0.2"
+    //noinspection GradleCompatible
+    implementation "com.android.support:design:28.0.0"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+}

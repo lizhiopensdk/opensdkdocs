@@ -1,0 +1,15 @@
+<resources>
+    <string name="lz_app_name">LzLive</string>
+    <string name="lz_app_user_state_visitor">第三方目前状态：游客</string>
+    <string name="lz_app_user_state_login">第三方目前状态：已登录</string>
+    <string name="lz_app_user_openid">第三方的openId：%s</string>
+    <string name="lz_app_user_gotologin">去登录</string>
+    <string name="lz_app_user_logout">退出登录</string>
+    <string name="lz_app_user_success">操作成功</string>
+    <string name="lz_app_version">版本号：%s</string>
+    <string name="lz_user_male">性别：男</string>
+    <string name="lz_user_female">性别：女</string>
+    <string name="lz_user_unknow">性别：未知</string>
+    <string name="lz_user_registered">账户已注册</string>
+    <string name="lz_user_unregister">账户未注册</string>
+</resources>

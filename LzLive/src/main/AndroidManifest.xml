@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lizhi.lzlive">
+
+    <application
+        android:name=".LzLiveApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/lz_icon_launcher"
+        android:label="@string/lz_app_name"
+        android:roundIcon="@mipmap/lz_icon_launcher_round"
+        android:supportsRtl="true"
+        tools:replace="android:name,android:label"
+        android:theme="@style/lz_AppTheme">
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+
+        </activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
