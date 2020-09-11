@@ -15,21 +15,565 @@
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
 # class:
-#------------------  下方是android平台自带的排除项，这里不要动 ----------------
-#-keepclassmembers class com.xxx.webview {
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
 
--renamesourcefileattribute SourceFile
--keepattributes Exceptions,InnerClasses,Signature,Deprecated,*Annotation*,EnclosingMethod
--keepattributes *Annotation*
-#保留跟 javascript相关的属性
--keepattributes JavascriptInterface
-#保留JavascriptInterface中的方法
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
-}
 -keep class **.R$**{*;}
+
+-keep class com.umeng.**{*;}
+
+-keep class com.sina.**{*;}
+
+-keep class com.oopsconsultancy.**{*;}
+
+-keep class com.tencent.**{*;}
+
+-keep class com.renn.**{*;}
+
+-keep class myjava.awt.datatransfer.**{*;}
+
+-keep class org.apache.harmony.**{*;}
+
+-keep class com.sun.mail.**{*;}
+
+-keep class javax.mail.**{*;}
+
+-keep class org.apache.commons.mail.**{*;}
+
+-keep class com.yibasan.lizhifm.record.audiomix.l{*;}
+
+-keep class com.yibasan.lizhifm.record.audiomix.b{*;}
+
+-keep class com.yibasan.lizhifm.record.audiomix.b$a{*;}
+
+-keep class com.yibasan.lizhifm.secret.**{*;}
+
+-keep class com.yibasan.lizhifm.cobub.Cobub{*;}
+-keep class com.yibasan.lizhifm.rds.**{*;}
+-keep class com.yibasan.lizhifm.cobubclient.**{*;}
+
+-keep class com.wbtech.ums.common.Persistent{
+	public static java.lang.String getIdentifier(android.content.Context);
+	public static long getSessionTime(android.content.Context, long);
+	public static void saveSessionTime(android.content.Context);
+}
+
+-keep class com.wbtech.cobubclient.common.Persistent{
+	public static java.lang.String getIdentifier(android.content.Context);
+}
+
+-keep class com.yibasan.lizhifm.BuildConfig{*;}
+
+-keep class android.support.**{*;}
+
+
+#-keep public class * extends android.view.View {
+#    public <init>(android.content.Context);
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#}
+
+-keep public class com.yibasan.lizhifm.record.recordutilities.JNIAudioProcess {
+	public void onVolumeChanged(float, float);
+	public void onMusicStateChanged(boolean);
+	public void onPlayerError(int, int);
+}
+
+-keep public class com.yibasan.lizhifm.liveutilities.JNIRtmpDump {
+	public void rtmpDumpCallBack(int);
+}
+
+-keep public class com.yibasan.lizhifm.livebroadcast.LiveBroadcastVoiceConnectData {
+	public void localSpeakerData(short[], int);
+	public void remoteSpeakerData(short[], int);
+	public void singMusicData(short[], int);
+	public void singMixData(short[], int);
+	public void singEffectFinished();
+}
+# dd模块化
+-keep interface * {
+  <methods>;
+}
+-keep class com.luojilab.component.componentlib.** {*;}
+-keep class com.luojilab.gen.router.** {*;}
+-keep class * implements com.luojilab.component.componentlib.router.ISyringe {*;}
+-keep class * implements com.luojilab.component.componentlib.applicationlike.IApplicationLike {*;}
+
+#aidl donot
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+#-keep all class under src_interfaces folder
+
+-keep class com.yibasan.audio.player.LizhiMediaPlayer {
+	public void playFinishCallBack(boolean);
+	public void updatePlayTimeCallBack(long, long);
+	public void onPlayerError(int, int, String);
+}
+
+-keep public class com.yibasan.lizhifm.mediaplayer.MediaDecoder{
+    public void onPlayerError(int, int, byte[]);
+}
+
+-dontwarn com.wbtech.ums.**
+-dontwarn com.oopsconsultancy.**
+-dontwarn org.apache.commons.**
+-dontwarn com.example.mp3info.**
+-dontwarn org.apache.harmony.awt.**
+-dontwarn com.sun.mail.**
+-dontwarn javax.activation.**
+-dontwarn com.google.zxing.**
+-dontwarn com.nineoldandroids.**
+-dontwarn com.miaozhen.mzmonitor.**
+-dontwarn com.facebook.rebound.**
+-dontwarn com.yibasan.lizhifm.views.listviewanimations.**
+-dontwarn com.amap.api.location.**
+-dontwarn com.amap.api.services.**
+-dontwarn com.tendcloud.tenddata.**
+
+# ProGuard configurations for NetworkBench Lens
+-keep class com.networkbench.** { *; }
+-dontwarn com.networkbench.**
+-keepattributes Exceptions, Signature, InnerClasses
+# End NetworkBench Lens
+
+-optimizations !code/allocation/variable
+
+#mApptracker SDK
+-keep class cn.com.iresearch.mapptracker.**{
+*;
+}
+-dontwarn cn.com.iresearch.mapptracker.**
+
+-keep class io.vov.vitamio.**{*;}
+-dontwarn io.vov.vitamio.**
+
+#Qiniu Upload SDK
+-keep class com.qiniu.**{*;}
+-keep class com.qiniu.**{public <init>();}
+-ignorewarnings
+
+#equan SDK
+-keep class com.eguan.monitor.** {
+*;
+}
+-dontwarn com.eguan.monitor.**
+
+
+# pay
+-keep class com.yibasan.lizhifm.pay.order.modle.**{*;}
+
+-dontwarn com.alipay.**
+-keep class com.alipay.** {*;}
+
+-dontwarn  com.ta.utdid2.**
+-keep class com.ta.utdid2.** {*;}
+
+-dontwarn  com.ut.device.**
+-keep class com.ut.device.** {*;}
+
+-dontwarn  com.tencent.**
+-keep class com.tencent.** {*;}
+
+# keep alive
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+
+-dontwarn com.igexin.**
+-keep class com.igexin.**{*;}
+
+# io.agora
+-dontwarn io.agora.**
+-keep class io.agora.**{*;}
+
+# picasso
+-dontwarn com.squareup.picasso.**
+-keep class com.squareup.picasso.**{*;}
+
+# Gson
+-keep class com.yibasan.lizhifm.page.json.**{*;}
+-keep class com.yibasan.lizhifm.model.**{*;}
+-keep class com.yibasan.lizhifm.voicebusiness.voice.base.cobubs.**{*;}
+-keep class com.yibasan.lizhifm.voicebusiness.common.models.bean.**{*;}
+-keep class com.yibasan.lizhifm.voicebusiness.common.base.cobubs.**{*;}
+-keep class com.yibasan.lizhifm.voicebusiness.voice.models.bean.**{*;}
+-keep class com.yibasan.lizhifm.common.base.models.bean.**{*;}
+-keep class com.yibasan.lizhifm.socialbusiness.voicefriend.models.bean.**{*;}
+-keep class com.yibasan.lizhifm.socialbusiness.message.models.bean.**{*;}
+-keep class com.yibasan.lizhifm.lzlogan.combine.**{*;}
+-keep class com.yibasan.lizhifm.commonbusiness.search.models.bean.**{*;}
+
+# Plugin
+-keep class com.yibasan.lizhifm.lzpluginlibrary.models.bean.**{*;}
+
+# recordbusiness
+-keep class com.yibasan.lizhifm.record.common.models.bean.**{*;}
+# template
+-keep class com.yibasan.lizhifm.template.common.models.bean.**{*;}
+
+-keep class com.yibasan.lizhifm.template.common.views.dialogs.TemplateRankRuleDialog
+-keep class com.yibasan.lizhifm.template.common.views.dialogs.TemplateRankRuleDialog$** {
+    *;
+}
+
+# manifest: provider for updates
+-keep public class com.huawei.hms.update.provider.UpdateProvider { public *; protected *; }
+-dontwarn com.huawei.hms.**
+-keep class com.yibasan.lizhifm.page.json.**{*;}
+
+#Event Bus Start
+-keep class org.greenrobot.eventbus.** {*;}
+
+-keepclassmembers class ** {
+    public void on*Event(**);
+    void on*Event(**);
+}
+
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+#Event Bus End
+
+#rong cloud start
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+ public *;
+}
+-keepattributes Exceptions,InnerClasses
+
+-keepattributes Signature
+
+-keepattributes *Annotation*
+
+-keep class com.google.gson.examples.android.model.** { *; }
+
+-keep class **$Properties
+-dontwarn org.eclipse.jdt.annotation.**
+
+#-libraryjars libs/agora-rtc-sdk.jar
+#-keep class io.agora.rtc.** {*;}
+#
+-keep class io.rong.** {*;}
+#-keep class io.agora.rtc.** {*; }
+-keep class * implements io.rong.imlib.model.MessageContent{*;}
+
+-keep class com.yibasan.lizhifm.rongyun.PushMessageReceiver {*;}
+
+-dontwarn io.rong.push.**
+
+-dontnote com.xiaomi.**
+
+-dontnote com.huawei.android.pushagent.**
+
+-dontnote com.google.android.gms.gcm.**
+
+-dontnote io.rong.**
+
+-ignorewarnings
+#rong cloud end
+-keep class com.yibasan.lizhifm.page.json.**{*;}
+
+#bqmm start
+-keep class com.melink.** {*;}
+
+-dontnote com.melink.**
+#bqmm end
+
+#appconifg Gson解析UrlReplace
+-keep class com.yibasan.lizhifm.sdk.platformtools.http.UrlReplace
+
+-keep class com.yibasan.lizhifm.util.DiskCacheUtil
+-keep class com.yibasan.lizhifm.util.DiskCacheUtil$** {
+    *;
+}
+
+#*************************
+#
+#以下是腾讯X5浏览器内核的混淆文件
+#
+#*************************
+
+#@proguard_debug_start
+# ------------------ Keep LineNumbers and properties ---------------- #
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+-renamesourcefileattribute TbsSdkJava
+-keepattributes SourceFile,LineNumberTable
+#@proguard_debug_end
+
+# --------------------------------------------------------------------------
+# Addidional for x5.sdk classes for apps
+
+-keep class com.tencent.smtt.export.external.**{
+    *;
+}
+
+-keep class com.tencent.tbs.video.interfaces.IUserStateChangedListener {
+	*;
+}
+
+-keep class com.tencent.smtt.sdk.CacheManager {
+	public *;
+}
+
+-keep class com.tencent.smtt.sdk.CookieManager {
+	public *;
+}
+
+-keep class com.tencent.smtt.sdk.WebHistoryItem {
+	public *;
+}
+
+-keep class com.tencent.smtt.sdk.WebViewDatabase {
+	public *;
+}
+
+-keep class com.tencent.smtt.sdk.WebBackForwardList {
+	public *;
+}
+
+-keep public class com.tencent.smtt.sdk.WebView {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebView$HitTestResult {
+	public static final <fields>;
+	public java.lang.String getExtra();
+	public int getType();
+}
+
+-keep public class com.tencent.smtt.sdk.WebView$WebViewTransport {
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebView$PictureListener {
+	public <fields>;
+	public <methods>;
+}
+
+
+-keepattributes InnerClasses
+
+-keep public enum com.tencent.smtt.sdk.WebSettings$** {
+    *;
+}
+
+-keep public enum com.tencent.smtt.sdk.QbSdk$** {
+    *;
+}
+
+-keep public class com.tencent.smtt.sdk.WebSettings {
+    public *;
+}
+
+
+-keepattributes Signature
+-keep public class com.tencent.smtt.sdk.ValueCallback {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebViewClient {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.DownloadListener {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebChromeClient {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebChromeClient$FileChooserParams {
+	public <fields>;
+	public <methods>;
+}
+
+-keep class com.tencent.smtt.sdk.SystemWebChromeClient{
+	public *;
+}
+# 1. extension interfaces should be apparent
+-keep public class com.tencent.smtt.export.external.extension.interfaces.* {
+	public protected *;
+}
+
+# 2. interfaces should be apparent
+-keep public class com.tencent.smtt.export.external.interfaces.* {
+	public protected *;
+}
+
+-keep public class com.tencent.smtt.sdk.WebViewCallbackClient {
+	public protected *;
+}
+
+-keep public class com.tencent.smtt.sdk.WebStorage$QuotaUpdater {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebIconDatabase {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.WebStorage {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.DownloadListener {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.QbSdk {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.QbSdk$PreInitCallback {
+	public <fields>;
+	public <methods>;
+}
+-keep public class com.tencent.smtt.sdk.CookieSyncManager {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.Tbs* {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.utils.LogFileUtils {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.utils.TbsLog {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.utils.TbsLogClient {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.CookieSyncManager {
+	public <fields>;
+	public <methods>;
+}
+
+# Added for game demos
+-keep public class com.tencent.smtt.sdk.TBSGamePlayer {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGamePlayerClient* {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGamePlayerClientExtension {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGamePlayerService* {
+	public <fields>;
+	public <methods>;
+}
+
+-keep public class com.tencent.smtt.utils.Apn {
+	public <fields>;
+	public <methods>;
+}
+# end
+
+
+-keep public class com.tencent.smtt.export.external.extension.proxy.ProxyWebViewClientExtension {
+	public <fields>;
+	public <methods>;
+}
+
+-keep class MTT.ThirdAppInfoNew {
+	*;
+}
+
+-keep class com.tencent.mtt.MttTraceEvent {
+	*;
+}
+
+# Game related
+-keep public class com.tencent.smtt.gamesdk.* {
+	public protected *;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGameBooter {
+        public <fields>;
+        public <methods>;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGameBaseActivity {
+	public protected *;
+}
+
+-keep public class com.tencent.smtt.sdk.TBSGameBaseActivityProxy {
+	public protected *;
+}
+
+-keep public class com.tencent.smtt.gamesdk.internal.TBSGameServiceClient {
+	public *;
+}
+
+-keep class com.yibasan.lizhifm.sdk.platformtools.http.UrlReplace{
+ *;
+}
+-keep class * implements java.io.Serializable{
+*;
+}
+-keep class * implements java.io.Parcelable{
+*;
+}
+#---------------------------------------------------------------------------
+
+
+#------------------  下方是android平台自带的排除项，这里不要动         ----------------
+
 -keep public class * extends android.app.Activity{
 	public <fields>;
 	public <methods>;
@@ -43,25 +587,29 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
+
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+
 -keepclasseswithmembers class * {
 	public <init>(android.content.Context, android.util.AttributeSet);
 }
+
 -keepclasseswithmembers class * {
 	public <init>(android.content.Context, android.util.AttributeSet, int);
 }
--keep class * implements java.io.Serializable{
-*;
-}
--keep class * implements java.io.Parcelable{
-*;
-}
+
+-keepattributes *Annotation*
+
+#-keepclasseswithmembernames class *{
+#	native <methods>;
+#}
 -keepclasseswithmembers  class * {
     native <methods>;
 }
+
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
@@ -69,76 +617,18 @@
 #------------------  下方是共性的排除项目         ----------------
 # 方法名中含有“JNI”字符的，认定是Java Native Interface方法，自动排除
 # 方法名中含有“JRI”字符的，认定是Java Reflection Interface方法，自动排除
+
 -keepclasseswithmembers class * {
     ... *JNI*(...);
 }
+
 -keepclasseswithmembernames class * {
 	... *JRI*(...);
 }
+
 -keep class **JNI* {*;}
 
-#------------------  下方是第三方的混淆项 ----------------
-#facebook
--dontwarn com.facebook.**
--keep class com.facebook.**{*;}
-
-#slf4j
--dontwarn org.slf4j.**
--keep class org.slf4j.** { *; }
-
-#multitype
--keep class me.drakeet.** { *; }
-
-#kotlin
--dontwarn kotlinx.**
--keep class kotlinx.** { *; }
--keep class io.ktor.** { *; }
-
-#Event Bus Start
--keep class org.greenrobot.eventbus.** {*;}
--keepclassmembers class ** {
-    public void on*Event(**);
-    void on*Event(**);
-}
--keepclassmembers class ** {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
-# Only required if you use AsyncExecutor
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}
-
-#guava
--dontwarn com.google.**
--dontwarn javax.inject.**
--dontwarn sun.misc.Unsafe
-
-#databinding
--dontwarn android.databinding.**
--keep class android.databinding.** { *; }
--keepattributes javax.xml.bind.annotation.*
--keepattributes javax.annotation.processing.*
-
-# OkHttp3
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okhttp3.**
-
-# Okio
--dontwarn com.squareup.**
--dontwarn okio.**
--keep public class org.codehaus.* { *; }
--keep public class java.nio.* { *; }
-
-#x5.sdk
-# Addidional for x5.sdk classes for apps
--dontwarn com.tencent.**
--keep class com.tencent.**{ *;}
--dontwarn  com.x5.**
--keep class com.x5.** { *; }
-
-#Glide
+#---------------------   下方是 Glide    ------------------------
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
       **[] $VALUES;
@@ -151,41 +641,227 @@
   **[] $VALUES;
   public *;
 }
+
+# for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+# 从glide4.0开始，GifDrawable没有提供getDecoder()方法，
+# 需要通过反射获取gifDecoder字段值，所以需要保持GifFrameLoader和GifState类不被混淆
 -keep class com.bumptech.glide.load.resource.gif.GifDrawable$GifState{*;}
 -keep class com.bumptech.glide.load.resource.gif.GifFrameLoader {*;}
+#---------------------   下方是 分享    ------------------------
+-keep class * implements  com.yibasan.lizhifm.share.platform.ThirdPlatform
+-keep class com.sina.weibo.sdk.** { *; }
 
-#support
+#---------------------   下方网络诊断    ------------------------
+-keep class com.yibasan.lizhifm.network.checker.netchecktask.NetCheckTaskManager{*;}
+-keep class com.yibasan.lizhifm.network.checker.netchecktask.**{*;}
+
+#---------------------   下方是 Fragment 打点   ------------------------
+-keep public class * extends android.support.v4.app.Fragment
+
+#---------------------------下方是个像------------------------
+-dontwarn com.getui.**
+-keep class com.getui.**{*;}
+
+
+#---------------------   下方是华为推送   ------------------------
+-ignorewarning
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+#---------------------   上方是华为推送   ------------------------
+
+
+#---------------------   下方是信鸽推送   ------------------------
+-keep class com.tencent.android.tpush.** {* ;}
+-keep class com.tencent.mid.** {* ;}
+-keep public class * extends com.qq.taf.jce.JceStruct{*;}
+#---------------------   上方是信鸽推送   ------------------------
+
+
+#---------------------   下方是小米推送   ------------------------
+-keep class com.yibasan.lizhifm.pushsdk.receiver.XiaoMiReceiver {*;}
+-dontwarn com.xiaomi.push.**
+#---------------------   上方是小米推送   ------------------------
+
+
+#---------------------   下方是魅族推送   ------------------------
+-renamesourcefileattribute SourceFile
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,*Annotation*,EnclosingMethod
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.view.View {
+        public <init>(android.content.Context);
+        public <init>(android.content.Context, android.util.AttributeSet);
+        public <init>(android.content.Context, android.util.AttributeSet, int);
+        public void set*(...);
+    }
+
+-keepclasseswithmembers class * {
+        public <init>(android.content.Context, android.util.AttributeSet);
+    }
+    -keepclasseswithmembers class * {
+            public <init>(android.content.Context, android.util.AttributeSet, int);
+    }
+ -keepclassmembers class * implements android.os.Parcelable {
+         static android.os.Parcelable$Creator CREATOR;
+    }
 -dontwarn android.support.**
+#---------------------   上方是魅族推送   ------------------------
 
-#rxjava
--dontwarn org.reactivestreams.FlowAdapters
--dontwarn org.reactivestreams.**
--dontwarn java.util.concurrent.flow.**
--dontwarn java.util.concurrent.**
--dontwarn io.reactivex.**
--dontwarn com.trello.**
+#------------------保活 start-------------------------
+-keep class com.marswin89.marsdaemon.** {* ;}
+#---------------------  保活 end   ------------------------
 
-#------------------  下方是直播SDK的混淆项 ----------------
-#cobub
--keep class com.yibasan.lizhifm.cobub.Cobub{*;}
--keep class com.yibasan.lizhifm.cobubclient.**{*;}
--keep class com.wbtech.ums.common.Persistent{
-	public static java.lang.String getIdentifier(android.content.Context);
-	public static long getSessionTime(android.content.Context, long);
-	public static void saveSessionTime(android.content.Context);
-}
--keep class com.wbtech.cobubclient.common.Persistent{
-	public static java.lang.String getIdentifier(android.content.Context);
-}
+#------------------bugly start-------------------------
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+#---------------------bugly end   ------------------------
 
-#lizhifm
--dontwarn com.lizhifm.**
+#-------------------IjkMediaPlayer------------------
+-keep class tv.danmaku.ijk.media.player.** { *; }
+-keep class tv.danmaku.ijk.media.player.IjkMediaPlayer{ *; }
+-keep class tv.danmaku.ijk.media.player.ffmpeg.FFmpegApi{ *; }
 
-#yibasan
--dontwarn com.yibasan.**
+#-------------搜索打点---------------
+-keep class com.yibasan.lizhifm.commonbusiness.search.base.cobub.event.**{*;}
 
-#LIVE SDK
--dontwarn com.lizhi.live.sdk.**
+-keep class com.yibasan.audio.player.Bus{*;}
+
+#----------vivo-------------
+-dontwarn com.vivo.push.**
+-keep class com.vivo.push.**{*; }
+-keep class com.vivo.vms.**{*; }
+-keep class xxx.xxx.xxx.PushMessageReceiverImpl{*;}
+#-----------oppo---------------
+-keep public class * extends android.app.Service
+#-----------移动免密登录-------
+-dontwarn com.cmic.sso.sdk.**
+-keep public class com.cmic.sso.sdk.*{*;}
+
+#----------吆喝sdk-------------
+-keep class com.adhoc.** {*;}
+-keep class android.support.v4.view.ViewPager{*;}
+-keep class android.support.v7.widget.RecyclerView{*;}
+-keep class android.support.v4.view.ViewPager$*{*;}
+#-----------电信免密登录-------
+-keep class cn.com.chinatelecom.account.api.**{*;}
+
+-keep class com.yibasan.lizhifm.voicebusiness.main.view.cardslider.**{*;}
+
+-keep class com.yibasan.lizhifm.lp.** {*;}
+
+-keep class com.yibasan.lizhifm.app.startup.log.**{*;}
+
+#---------- Yoga --------
+-keep class com.facebook.yoga.**{*;}
 
 
 
+
+#---------- LiveBase --------
+-keep class com.lizhi.livebase.common.**{*;}
+-keep class com.lizhi.livebase.events.**{*;}
+-keep class com.lizhi.livebase.models.**{*;}
+-keep class com.lizhi.livebase.network.**{*;}
+-keep class com.lizhi.livebase.utils.**{*;}
+-keep class com.lizhi.livebase.cobub.**{*;}
+-keep class com.lizhi.livebase.msgcenter.**{*;}
+-keep class com.lizhi.livebase.webview.**{*;}
+-keep class com.lizhi.livebase.ActionEngine{*;}
+-keep class com.lizhi.livebase.BaseApplication{*;}
+-keep class com.lizhi.livebase.LizhiFMCore{*;}
+-keep class com.lizhi.livebase.task.**{*;}
+
+#---------- LiveComment --------
+-keep class com.lizhi.livecomment.models.**{*;}
+-keep class com.lizhi.livecomment.views.**{*;}
+-keep class com.lizhi.livecomment.presenters.SendLiveCommentPresenter{*;}
+
+#---------- LiveEngine --------
+-keep class com.lizhi.liveengine.pull.manager.**{*;}
+-keep class com.lizhi.liveengine.pull.bean.**{*;}
+
+#---------- LiveFlow --------
+-keep class com.lizhi.liveflow.models.**{*;}
+-keep class com.lizhi.liveflow.utils.**{*;}
+
+#---------- LiveProp --------
+-keep class com.lizhi.liveprop.utils.**{*;}
+-keep class com.lizhi.liveprop.models.**{*;}
+-keep class com.lizhi.liveprop.events.**{*;}
+-keep class com.lizhi.liveprop.manager.**{*;}
+-keep class com.lizhi.liveprop.avatarwidget.**{*;}
+-keep class com.lizhi.liveprop.views.**{*;}
+-keep class com.lizhi.liveprop.presenters.LiveDanmuPresenter{*;}
+-keep class com.lizhi.liveprop.presenters.LiveDanmuPresenter{*;}
+
+#---------- LiveRoom --------
+-keep class com.lizhi.liveroom.models.**{*;}
+-keep class com.lizhi.liveroom.managers.**{*;}
+-keep class com.lizhi.liveroom.presenters.LiveActivitiesPresenter{*;}
+
+#---------- LiveYoga --------
+-keep class com.lizhi.yoga.base.**{*;}
+-keep class com.lizhi.yoga.component.**{*;}
+-keep class com.lizhi.yoga.datasource.**{*;}
+
+#---------- LiveSDK --------
+-keep class com.lizhi.livebase.**{*;}
+-keep class com.lizhi.livecomment.**{*;}
+-keep class com.lizhi.liveengine.**{*;}
+-keep class com.lizhi.liveflow.**{*;}
+-keep class com.lizhi.liveprop.**{*;}
+-keep class com.lizhi.liveroom.**{*;}
+-keep class com.lizhi.liveyoga.**{*;}
+-keep class com.facebook.**{*;}
+#-keep class com.lizhi.**{*;}
+-keep class com.lizhifm.**{*;}
+-keep class com.yibasan.**{*;}
+-keep class com.plattysoft.**{*;}
+-keep class com.wbtech.**{*;}
+-keep class com.dianping.**{*;}
+-keep class com.tencent.**{*;}
+-keep class com.opensource.**{*;}
+-keep class fm.lz.**{*;}
+-keep class io.ktor.** { *; }
+-keep class com.futuremind.** { *; }
+-keep class android.support.design.** { *; }
+-keep class android.support.multidex.** { *; }
+-keep class android.support.animation.** { *; }
+-keep class android.support.dynamicanimation.** { *; }
+-keep class android.support.v7.** { *; }
+-keep class android.support.constraint.** { *; }
+-keep class okhttp3.** { *; }
+-keep class com.google.gson.** { *; }
+-keep class com.google.protobuf.** { *; }
+-keep class com.google.common.** { *; }
+-keep class com.google.thirdparty.** { *; }
+-keep class android.arch.lifecycle.** { *; }
+-keep class com.bumptech.** { *; }
+-keep class org.greenrobot.** { *; }
+-keep class org.slf4j.** { *; }
+-keep class com.trello.** { *; }
+-keep class me.drakeet.** { *; }
+-keep class com.x5.** { *; }
+-keep class com.csvreader.** { *; }
+-keep class kotlin.** { *; }
+-keep class kotlinx.** { *; }
+-keep class io.ktor.** { *; }
+-keep class com.scwang.** { *; }
+-keep class com.makeramen.** { *; }
+
+
+-keep class  com.lizhi.live.sdk.LogTag{*;}
+-keep class  com.lizhi.live.sdk.LzLiveClient{*;}
+-keep class  com.lizhi.live.sdk.LzLiveClientInfo{*;}
+-keep class  com.lizhi.live.sdk.LzLiveClientInfo$*{*;}
+-keep class  com.lizhi.live.sdk.account.AppAccount{*;}
+-keep class  com.lizhi.live.sdk.liveflow.FlowInfo{*;}
+-keep class  com.lizhi.live.sdk.liveflow.LiveCardInfo{*;}
+-keep class  com.lizhi.live.sdk.liveflow.LiveDynamicInfo{*;}
+-keep class  com.lizhi.live.sdk.liveflow.UserDoingThingInfo{*;}
+
+
+#-dontoptimize
