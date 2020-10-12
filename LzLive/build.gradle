@@ -69,7 +69,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "android.arch.core:core-testing:1.1.1"
 
-    implementation 'com.lizhifm.sdk.live:lzlive-lib:1.0.29.54'
+    implementation 'com.lizhifm.sdk.live:lzlive-lib:1.0.30.03'
     implementation "com.squareup.okhttp3:okhttp:3.12.12"
     implementation "com.squareup.okhttp3:logging-interceptor:3.12.12"
     implementation "com.google.code.gson:gson:2.7"

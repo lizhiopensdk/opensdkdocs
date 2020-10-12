@@ -7,12 +7,13 @@ configurations.all {
 buildscript {
 
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }//jcenter访问不了时用阿里云
         //公共
         maven {
             url 'https://maven.google.com/'
             name 'Google'
         }
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }//jcenter访问不了时用阿里云
+
         jcenter()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }

@@ -16,17 +16,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lizhi.live.sdk.LogTag;
+import com.lizhi.live.sdk.LzLiveCallback;
 import com.lizhi.live.sdk.LzLiveClient;
 import com.lizhi.live.sdk.LzLiveClientInfo;
-import com.lizhi.live.sdk.LzLiveSession;
+import com.lizhi.lzlive.events.NeedBindPhoneEvent;
+import com.lizhi.lzlive.events.NeedLoginEvent;
+import com.lizhi.lzlive.events.RoomStateChangeEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 这个用于模拟第三方app登陆流程，注意这里账户与登陆状态都是记录在文件的
  */
 public class LoginActivity extends AppCompatActivity {
 
-
-
+    private static final String TAG = LogTag.TAG;
 
     public static String LAST_LOGIN_OPENID = "last_login_openid";
 
@@ -82,6 +87,54 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lz_activity_login);
+
+        boolean isSucc = LzLiveClient.getDefault().init(LzLiveApplication.getApplication(), false, false, "eyJzdWJhcHBpZCI6IjE5OTE0MSIsImFwcGtleSI6ImRmOTYyMGFiZjMzZTg3MDFlMThmZTFmMzExM2VkOTI3Iiwib3BlbmlkX3Bvc3RmaXgiOiJfb2ZmaWNhbCJ9");
+        if (!isSucc) {
+            Toast.makeText(this, "初始化失败", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        LzLiveClient.getDefault().registerCallBack(new LzLiveCallback() {
+            @Override
+            public void onNeedLogin(boolean needClientInfo) {
+                Log.e(TAG, "onNeedLogin needClientInfo : " + needClientInfo);
+                NeedLoginEvent event = new NeedLoginEvent();
+                event.needClientInfo = needClientInfo;
+                EventBus.getDefault().post(event);
+
+            }
+
+            @Override
+            public String onNeedBindPhone() {
+                Log.e(TAG, "onNeedLogin onNeedBindPhone ");
+                /**
+                 * 用户绑定手机号需要app方提前准备好，以便此接口回调时能够及时拿到，
+                 * 如果没有，SDK将调起内部的绑定流程
+                 */
+                NeedBindPhoneEvent event = new NeedBindPhoneEvent();
+                EventBus.getDefault().post(event);
+                if (!TextUtils.isEmpty(ShareUtil.get(ShareUtil.PHONE_NUM, ""))) {
+                    return ShareUtil.get(ShareUtil.PHONE_NUM, "");
+                }
+                return null;
+            }
+
+            @Override
+            public void onRoomState(boolean isMinimized, long liveId, int liveState, String avatarUrl) {
+                Log.d(TAG,String.format("isMinimized=%b, liveId=%d, liveState=%d, avatarUrl=%s", isMinimized, liveId, liveState, avatarUrl));
+                RoomStateChangeEvent event = new RoomStateChangeEvent();
+                event.isMinimized = isMinimized;
+                event.liveId = liveId;
+                event.liveState = liveState;
+                event.avatarUrl = avatarUrl;
+                EventBus.getDefault().post(event);
+            }
+
+            @Override
+            public void onError(int error, String msg) {
+                Log.e(TAG, "onError error : " + error + " msg : " + msg);
+                Toast.makeText(getApplicationContext(), "sdk注册失败 ： " + msg, Toast.LENGTH_SHORT).show();
+            }
+        });
         /**
          * 如果上次是已登录状态则恢复到上次登陆的状态
          */
